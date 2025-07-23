@@ -3,7 +3,16 @@ import { defineMiddleware } from "astro:middleware";
 // Get server URL from environment variable with fallback for local development
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 
-// Middleware to handle API requests
+/**
+ * Middleware to handle API requests by forwarding them to the backend server.
+ * 
+ * This middleware intercepts API requests and forwards them to the Flask backend,
+ * allowing the Astro frontend to proxy API calls seamlessly.
+ * 
+ * @param context - The Astro middleware context containing request information
+ * @param next - The next middleware function in the chain
+ * @returns Response object either from the API server or an error response
+ */
 export const onRequest = defineMiddleware(async (context, next) => {
   
   // Guard clause: if not an API request, pass through to regular Astro handling
